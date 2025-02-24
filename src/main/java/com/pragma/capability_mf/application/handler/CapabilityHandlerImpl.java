@@ -5,6 +5,7 @@ import com.pragma.capability_mf.application.mapper.CapabilityMapper;
 import com.pragma.capability_mf.domain.api.CapabilityServicePort;
 import com.pragma.capability_mf.domain.enums.SuccessMessages;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -28,7 +29,7 @@ public class CapabilityHandlerImpl {
                 .flatMap(dto -> capabilityServicePort.save(capabilityMapper.toModel(dto)))
                 .flatMap(saved->{
                     Map<String,String> response = Map.of("message", SuccessMessages.CAPABILITY_CREATED.getMessage());
-                    return ServerResponse.ok().bodyValue(response);
+                    return ServerResponse.status(HttpStatus.CREATED).bodyValue(response);
                 });
     }
 }

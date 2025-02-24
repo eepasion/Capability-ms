@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collation = "capabilities")
+@Document(collection = "capabilities")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -21,5 +21,5 @@ public class CapabilityEntity {
     @Field("descripcion")
     private String description;
     @Field("tecnologias")
-    private String[] technologies;
+    private Long[] technologies;
 }

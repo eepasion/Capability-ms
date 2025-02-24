@@ -10,5 +10,5 @@ import lombok.Setter;
 public class CapabilityRequestDto {
     private String name;
     private String description;
-    private String[] technologies;
+    private Long[] technologies;
 }

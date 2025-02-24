@@ -19,6 +19,21 @@ public class CapabilityValidations {
         validateTechnologies(capability.technologies());
     }
 
+    public static void validateCapabilitySort(int page, int size, String sortBy, String sort) {
+        if (page < 1) {
+            throw new BusinessException(ErrorMessages.CAPABILITY_PARAM_PAGE_LESS_ZERO);
+        }
+        if (size < 1) {
+            throw new BusinessException(ErrorMessages.CAPABILITY_PARAM_SIZE_LESS_ZERO);
+        }
+        if (!sort.equalsIgnoreCase("asc") && !sort.equalsIgnoreCase("desc")) {
+            throw new BusinessException(ErrorMessages.CAPABILITY_SORT_FORMAT);
+        }
+        if (!sortBy.equalsIgnoreCase("nombre") && !sortBy.equalsIgnoreCase("tecnologia")) {
+            throw new BusinessException(ErrorMessages.CAPABILITY_SORT_BY_FORMAT);
+        }
+    }
+
     private static void validateName(String name) {
         if (name == null || name.isEmpty()) {
             throw new BusinessException(ErrorMessages.CAPABILITY_NEEDS_NAME);

@@ -15,6 +15,10 @@ public enum ErrorMessages {
     CAPABILITY_NEEDS_DESCRIPTION(400, "La capacidad debe tener una descripcion."),
     CAPABILITY_NAME_SIZE(400, "El nombre de la capacidad debe tener un maximo de 50 caracteres."),
     CAPABILITY_DESCRIPTION_SIZE(400, "La descripcion de la capacidad debe tener un maximo de 90 caracteres."),
+    CAPABILITY_SORT_FORMAT(400, "El parametro sort debe ser 'asc' o 'desc'."),
+    CAPABILITY_SORT_BY_FORMAT(400, "El parametro sortBy debe ser 'nombre' o 'tecnologia'."),
+    CAPABILITY_PARAM_SIZE_LESS_ZERO(400, "El parametro size no debe ser menor a 1"),
+    CAPABILITY_PARAM_PAGE_LESS_ZERO(400, "El parametro page no debe ser menor a 1");
     ;
 
     private final Number code;

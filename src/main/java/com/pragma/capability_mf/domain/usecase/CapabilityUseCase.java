@@ -8,6 +8,7 @@ import com.pragma.capability_mf.domain.spi.CapabilityPersistencePort;
 import com.pragma.capability_mf.domain.spi.TechnologyClientPort;
 import com.pragma.capability_mf.domain.validations.CapabilityValidations;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -25,5 +26,11 @@ public class CapabilityUseCase implements CapabilityServicePort {
                     }
                     return capabilityPersistencePort.save(capability);
                 });
+    }
+
+    @Override
+    public Flux<Capability> getAllCapabilitiesBy(int page, int size, String sortBy, String sort) {
+        CapabilityValidations.validateCapabilitySort(page, size, sortBy, sort);
+        return capabilityPersistencePort.getAllCapabilitiesBy(page, size, sortBy, sort);
     }
 }

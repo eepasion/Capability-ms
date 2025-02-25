@@ -19,9 +19,11 @@ public class CapabilityPersistenceAdapter implements CapabilityPersistencePort {
 
     @Override
     public Flux<Capability> getAllCapabilitiesBy(int page, int size, String sortBy, String sort) {
+        int skip = (page -1) * size;
+        if(sortBy == null) return capabilityRepository.findAllWithPagination(skip, size).map(capabilityEntityMapper::toModel);
         boolean descending = sort.equalsIgnoreCase("desc");
         int sortDirection = descending ? -1 : 1;
-        int skip = page * size;
+        if(sortBy.equalsIgnoreCase("name")) return capabilityRepository.findAllSortedByName(sortDirection, skip, size).map(capabilityEntityMapper::toModel);
         return capabilityRepository.findAllSortedByTecnhnologies(sortDirection, skip, size).map(capabilityEntityMapper::toModel);
     }
 }

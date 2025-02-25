@@ -63,5 +63,43 @@ class CapabilityValidationsTest {
                 .hasMessage(ErrorMessages.CAPABILITY_TECHNOLOGY_MAX_SIZE.getMessage());
     }
 
+    @Test
+    void shouldThrowExceptionWhenSizeIsLessThanOne() {
+        assertThatThrownBy(() -> CapabilityValidations.validateCapabilitySort(0, 1, "", ""))
+                .isInstanceOf(BusinessException.class)
+                .hasMessage(ErrorMessages.CAPABILITY_PARAM_PAGE_LESS_ZERO.getMessage());
+    }
+    @Test
+    void shouldThrowExceptionWhenPageIsLessThanOne() {
+        assertThatThrownBy(() -> CapabilityValidations.validateCapabilitySort(1, 0, "", ""))
+                .isInstanceOf(BusinessException.class)
+                .hasMessage(ErrorMessages.CAPABILITY_PARAM_SIZE_LESS_ZERO.getMessage());
+    }
+    @Test
+    void shouldThrowExceptionWhenSortByIsInvalid() {
+        assertThatThrownBy(() -> CapabilityValidations.validateCapabilitySort(1, 1, "invalid", "asc"))
+                .isInstanceOf(BusinessException.class)
+                .hasMessage(ErrorMessages.CAPABILITY_SORT_BY_FORMAT.getMessage());
+    }
 
+    @Test
+    void shouldThrowExceptionWhenSortIsInvalid() {
+        assertThatThrownBy(() -> CapabilityValidations.validateCapabilitySort(1, 1, "name", "invalid"))
+                .isInstanceOf(BusinessException.class)
+                .hasMessage(ErrorMessages.CAPABILITY_SORT_FORMAT.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSortAreNullAndSortByNotNull() {
+        assertThatThrownBy(() -> CapabilityValidations.validateCapabilitySort(1, 1, "name", null))
+                .isInstanceOf(BusinessException.class)
+                .hasMessage(ErrorMessages.CAPABILITY_SORT_BY_NO_HAS_SORT.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSortByAreNullAndSortNotNull() {
+        assertThatThrownBy(() -> CapabilityValidations.validateCapabilitySort(1, 1, null, "asc"))
+                .isInstanceOf(BusinessException.class)
+                .hasMessage(ErrorMessages.CAPABILITY_SORT_BY_NO_HAS_SORT.getMessage());
+    }
 }

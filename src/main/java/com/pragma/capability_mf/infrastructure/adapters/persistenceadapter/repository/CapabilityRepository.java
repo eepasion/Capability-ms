@@ -20,4 +20,17 @@ public interface CapabilityRepository extends ReactiveMongoRepository<Capability
             "{ $limit: ?2 }"
     })
     Flux<CapabilityEntity> findAllSortedByTecnhnologies(int sortDirection, int skip, int limit);
+
+    @Aggregation(pipeline = {
+            "{ $sort: { nombre: ?0 } }",
+            "{ $skip: ?1 }",
+            "{ $limit: ?2 }"
+    })
+    Flux<CapabilityEntity> findAllSortedByName(int sortDirection, int skip, int limit);
+
+    @Aggregation(pipeline = {
+            "{ $skip: ?0 }",
+            "{ $limit: ?1 }"
+    })
+    Flux<CapabilityEntity> findAllWithPagination(int skip, int limit);
 }

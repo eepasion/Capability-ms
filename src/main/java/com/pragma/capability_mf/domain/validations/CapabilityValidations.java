@@ -26,11 +26,14 @@ public class CapabilityValidations {
         if (size < 1) {
             throw new BusinessException(ErrorMessages.CAPABILITY_PARAM_SIZE_LESS_ZERO);
         }
-        if (!sort.equalsIgnoreCase("asc") && !sort.equalsIgnoreCase("desc")) {
+        if (!"ASC".equalsIgnoreCase(sort) && !"DESC".equalsIgnoreCase(sort) && sort != null) {
             throw new BusinessException(ErrorMessages.CAPABILITY_SORT_FORMAT);
         }
-        if (!sortBy.equalsIgnoreCase("nombre") && !sortBy.equalsIgnoreCase("tecnologia")) {
+        if (!"name".equalsIgnoreCase(sortBy) && !"tech".equalsIgnoreCase(sortBy) && sortBy != null) {
             throw new BusinessException(ErrorMessages.CAPABILITY_SORT_BY_FORMAT);
+        }
+        if((sort != null && sortBy == null) || (sort == null && sortBy != null)) {
+            throw new BusinessException(ErrorMessages.CAPABILITY_SORT_BY_NO_HAS_SORT);
         }
     }
 

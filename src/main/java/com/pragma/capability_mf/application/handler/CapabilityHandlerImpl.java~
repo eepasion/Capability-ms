@@ -1,7 +1,6 @@
 package com.pragma.capability_mf.application.handler;
 
 import com.pragma.capability_mf.application.dto.CapabilityRequestDto;
-import com.pragma.capability_mf.application.dto.CapabilityTechnologiesDto;
 import com.pragma.capability_mf.application.mapper.CapabilityMapper;
 import com.pragma.capability_mf.domain.api.CapabilityServicePort;
 import com.pragma.capability_mf.domain.enums.SuccessMessages;
@@ -10,10 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -44,9 +41,5 @@ public class CapabilityHandlerImpl {
         return capabilityServicePort.getAllCapabilitiesBy(page, size, sortBy, sort)
                 .collectList()
                 .flatMap(capabilities -> ServerResponse.ok().bodyValue(capabilities));
-    }
-
-    public Flux<CapabilityTechnologiesDto> getAllCapabilitiesById(List<String > ids) {
-        return capabilityServicePort.getAllCapabilitiesById(ids).map(capabilityMapper::toResponseDto);
     }
 }

@@ -9,5 +9,5 @@ import java.util.List;
 public interface CapabilityPersistencePort {
     Mono<Capability> save(Capability capability);
     Flux<Capability> getAllCapabilitiesBy(int page, int size,String sortBy,String sort);
-    Flux<Capability> getAllCapabilitiesById(List<String> ids);
+    Flux<Capability> getAllCapabilitiesById(List<Long> ids);
 }

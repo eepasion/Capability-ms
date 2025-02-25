@@ -39,6 +39,11 @@ public class CapabilityUseCase implements CapabilityServicePort {
                 .flatMap(this::mapToCapabilityWithTechnologies);
     }
 
+    @Override
+    public Flux<CapabilityWithTechnologies> getAllCapabilitiesById(List<String> ids) {
+        return capabilityPersistencePort.getAllCapabilitiesById(ids).flatMap(this::mapToCapabilityWithTechnologies);
+    }
+
     private Mono<List<Technology>> getAllTechnologiesById(List<Long> technologies) {
         return technologyClientPort.getAllTechnologiesById(technologies);
     }

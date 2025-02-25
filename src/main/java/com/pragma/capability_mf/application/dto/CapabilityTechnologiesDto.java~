@@ -1,0 +1,11 @@
+package com.pragma.capability_mf.application.dto;
+
+import com.pragma.capability_mf.domain.model.Technology;
+
+import java.util.List;
+
+public class CapabilityTechnologiesDto {
+    String id;
+    String name;
+    List<Technology> technologies;
+}

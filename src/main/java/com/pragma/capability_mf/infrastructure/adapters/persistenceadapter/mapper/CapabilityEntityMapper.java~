@@ -1,0 +1,4 @@
+package com.pragma.capability_mf.infrastructure.adapters.persistenceadapter.mapper;
+@Mapper
+public interface CapabilityEntityMapper {
+}

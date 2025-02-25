@@ -16,8 +16,7 @@ public class CapabilityPersistenceAdapter implements CapabilityPersistencePort {
     private final CapabilityEntityMapper capabilityEntityMapper;
     @Override
     public Mono<Capability> save(Capability capability) {
-        return capabilityRepository.save(capabilityEntityMapper.toEntity(capability))
-                .map(capabilityEntityMapper::toModel);
+        return capabilityRepository.save(capabilityEntityMapper.toEntity(capability)).map(capabilityEntityMapper::toModel);
     }
 
     @Override

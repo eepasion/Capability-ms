@@ -1,0 +1,12 @@
+package com.pragma.capability_mf.domain.model;
+
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Technology {
+    private Long id;
+    private String name;
+}

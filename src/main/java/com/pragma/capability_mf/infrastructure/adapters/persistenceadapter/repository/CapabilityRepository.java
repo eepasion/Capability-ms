@@ -22,7 +22,8 @@ public interface CapabilityRepository extends ReactiveMongoRepository<Capability
     Flux<CapabilityEntity> findAllSortedByTecnhnologies(int sortDirection, int skip, int limit);
 
     @Aggregation(pipeline = {
-            "{ $sort: { nombre: ?0 } }",
+            "{ $addFields: { lowerName: { $toLower: '$nombre'} } }",
+            "{ $sort: { lowerName: ?0 } }",
             "{ $skip: ?1 }",
             "{ $limit: ?2 }"
     })

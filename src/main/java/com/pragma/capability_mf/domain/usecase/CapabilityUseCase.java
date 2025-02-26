@@ -36,7 +36,7 @@ public class CapabilityUseCase implements CapabilityServicePort {
     public Flux<CapabilityWithTechnologies> getAllCapabilitiesBy(int page, int size, String sortBy, String sort) {
         CapabilityValidations.validateCapabilitySort(page, size, sortBy, sort);
         return capabilityPersistencePort.getAllCapabilitiesBy(page, size, sortBy, sort)
-                .flatMap(this::mapToCapabilityWithTechnologies);
+                .concatMap(this::mapToCapabilityWithTechnologies);
     }
 
     @Override

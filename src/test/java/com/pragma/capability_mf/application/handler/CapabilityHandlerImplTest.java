@@ -1,6 +1,7 @@
 package com.pragma.capability_mf.application.handler;
 
 import com.pragma.capability_mf.application.dto.CapabilityRequestDto;
+import com.pragma.capability_mf.application.dto.CapabilityTechnologiesDto;
 import com.pragma.capability_mf.application.mapper.CapabilityMapper;
 import com.pragma.capability_mf.domain.api.CapabilityServicePort;
 import com.pragma.capability_mf.domain.enums.SuccessMessages;
@@ -16,11 +17,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
@@ -70,5 +72,19 @@ class CapabilityHandlerImplTest {
                                 .queryParam("sort", "asc")
                 .build()).exchange()
                 .expectStatus().isOk();
+    }
+
+    @Test
+    void getAllCapabilitiesById() {
+        Technology technology = new Technology(1L, "java");
+        CapabilityWithTechnologies capability = new CapabilityWithTechnologies("id", "name", "description", List.of(technology));
+        List<String> ids = List.of("id");
+        CapabilityTechnologiesDto capabilityTechnologiesDto = new CapabilityTechnologiesDto("id", "name", List.of(technology));
+        when(capabilityServicePort.getAllCapabilitiesById(anyList())).thenReturn(Flux.just(capability));
+        when(capabilityMapper.toResponseDto(any(CapabilityWithTechnologies.class))).thenReturn(capabilityTechnologiesDto);
+
+        StepVerifier.create(capabilityHandler.getAllCapabilitiesById(ids)).expectNext(capabilityTechnologiesDto).verifyComplete();
+        verify(capabilityServicePort, times(1)).getAllCapabilitiesById(anyList());
+        verify(capabilityMapper, times(1)).toResponseDto(any(CapabilityWithTechnologies.class));
     }
 }
